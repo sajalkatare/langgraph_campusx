@@ -2,6 +2,9 @@ import streamlit as st
 from langgraph_backend_database import chatbot, retrieve_all_threads
 from langchain_core.messages import HumanMessage
 import uuid
+import os
+
+os.environ['LANGCHAIN_PROJECT'] = 'langsmith-chatbot-sk'
 
 # **************************************** utility functions *************************
 
@@ -81,6 +84,8 @@ if user_input:
         st.text(user_input)
 
     #CONFIG = {'configurable': {'thread_id': st.session_state['thread_id']}}
+
+    # This is for LangSmith to be able to group all the messages in the same thread together in the UI, and also to be able to retrieve the conversation history based on thread_id
 
     CONFIG = {
         "configurable": {"thread_id": st.session_state["thread_id"]},
